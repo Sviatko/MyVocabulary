@@ -1,10 +1,10 @@
-import { Vocab1Page } from './app.po';
+import { ClitestPage } from './app.po';
 
-describe('vocab1 App', () => {
-  let page: Vocab1Page;
+describe('clitest App', () => {
+  let page: ClitestPage;
 
   beforeEach(() => {
-    page = new Vocab1Page();
+    page = new ClitestPage();
   });
 
   it('should display welcome message', () => {
