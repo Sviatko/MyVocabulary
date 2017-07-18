@@ -17,31 +17,36 @@ export class VocabComponent implements OnInit {
   msgVal: string = '';
   items: FirebaseListObservable<any[]>;
   user: firebase.User;
-  userName:string;
-
+  userName: string;
 
   // constructor(private firebaseDataService: FirebaseDataService) {
-  constructor(public afAuth: AngularFireAuth, public afdb: AngularFireDatabase, public fbApp : FirebaseApp) {
-    firebase.auth().onAuthStateChanged(function(user) {
+  constructor(public afAuth: AngularFireAuth, public afdb: AngularFireDatabase, public fbApp: FirebaseApp) {
+    this.firebaseInit();
+  };
+
+  firebaseInit() {
+    let voc = this;
+    firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         console.log('vocab >> constructor >> onAuthStateChanged >> user: ');
         console.log(user);
-        this.user = user;
-        this.username = user.displayName;
-        console.log('-------------------------');
-        console.log('vocab >> constructor >> onAuthStateChanged >> this.user: ');
-        console.log(this.user);
-        console.log(this.userName);
+        voc.user = user;
+        // voc.username = user.displayName;
+        console.log('vocab >> constructor >> onAuthStateChanged >> voc.user: ');
+        console.log(voc.user);
+        // console.log(voc.userName);
         console.log('-------------------------');
       }
-    });
-  };
 
-  // constructor() {};
+    })
+  }
+
+// constructor() {};
   ngOnInit() {
     this.getMessages();
     this.getUser();
   }
+
   vocRecords = [
     {
       front: 'live',
@@ -68,23 +73,22 @@ export class VocabComponent implements OnInit {
     console.log('vocab >> getUser()');
     // this.user = this.firebaseDataService.getUser();
     console.log(this.user);
-    console.log(this.userName);
     console.log('-------------------------');
   }
 
   login() {
+    let voc = this;
     console.log('vocab >> login()');
     console.log('vocab >> login >> this.user: ');
     console.log(this.user);
-    console.log(this.userName);
     console.log('-------------------------');
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then(function (result) {
         console.log('vocab >> login successful. result:');
         console.log(result);
         console.log('-------------------------');
+        // voc.user = this.afAuth.authState;
       });
-    // this.user = this.afAuth.authState;
     console.log('vocab >> login completed. this.user:');
     console.log(this.user);
     console.log(this.userName);
@@ -94,19 +98,17 @@ export class VocabComponent implements OnInit {
   logout() {
     console.log('vocab >> logout()  user before:');
     console.log(this.user);
-    console.log(this.userName);
     // this.firebaseDataService.logout()
     this.afAuth.auth.signOut();
+    // this.user = this.afAuth.authState;
     console.log('vocab >> logout()  user after:');
     console.log(this.user);
-    console.log(this.userName);
     console.log('-------------------------');
   };
 
   send(msg: string) {
-    console.log('vocab >> send('+msg+')');
+    console.log('vocab >> send(' + msg + ')');
     console.log(this.user);
-    console.log(this.userName);
     console.log('-------------------------');
     // this.firebaseDataService.send(msg)
   };
