@@ -15,36 +15,26 @@ import {FirebaseApp} from "angularfire2";
 export class VocabComponent implements OnInit {
 
   msgVal: string = '';
-  items: FirebaseListObservable<any[]>;
+  vocab: any[];
   user: firebase.User;
   userName: string;
 
-  // constructor(private firebaseDataService: FirebaseDataService) {
-  constructor(public afAuth: AngularFireAuth, public afdb: AngularFireDatabase, public fbApp: FirebaseApp) {
-    this.firebaseInit();
+  constructor(private firebaseDataService: FirebaseDataService) {
   };
 
-  firebaseInit() {
-    let voc = this;
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        console.log('vocab >> constructor >> onAuthStateChanged >> user: ');
-        console.log(user);
-        voc.user = user;
-        // voc.username = user.displayName;
-        console.log('vocab >> constructor >> onAuthStateChanged >> voc.user: ');
-        console.log(voc.user);
-        // console.log(voc.userName);
-        console.log('-------------------------');
-      }
-
-    })
-  }
-
-// constructor() {};
   ngOnInit() {
-    this.getMessages();
-    this.getUser();
+    console.log('vocab >> ngInit()');
+    // this.firebaseDataService.getVocabulary().then(function (user) {
+    //   this.user = user;
+    // });
+    // this.firebaseDataService.getUser().then(function (user) {
+    //   this.user = user;
+    // });
+    let voc = this;
+    this.firebaseDataService.getVocabulary().subscribe(vocab => voc.vocab = vocab);
+    console.log('vocab >> constructor() >> vocab:');
+    console.log(this.vocab);
+    this.firebaseDataService.getUser2().subscribe(user => voc.user = user)
   }
 
   vocRecords = [
@@ -63,35 +53,30 @@ export class VocabComponent implements OnInit {
     }
 
   ];
+  // console.log('vocab >> getUser()');
 
-  getMessages() {
-    console.log('vocab >> getMessages()');
-    // this.items = this.firebaseDataService.getMassages();
+
+  getVocabulary(): FirebaseListObservable<any[]> {
+    console.log('vocab >> getVocabulary()');
+    // this.vocab = this.firebaseDataService.getVocabulary();
+    console.log('vocab >> getVocabulary() >> vocab:');
+    console.log(this.vocab);
+    return this.firebaseDataService.getVocabulary();
   }
 
   getUser() {
-    console.log('vocab >> getUser()');
-    // this.user = this.firebaseDataService.getUser();
+
+    this.user = this.firebaseDataService.user;
     console.log(this.user);
     console.log('-------------------------');
   }
 
   login() {
-    let voc = this;
-    console.log('vocab >> login()');
-    console.log('vocab >> login >> this.user: ');
+    console.log('vocab >> login()  user before:');
     console.log(this.user);
-    console.log('-------------------------');
-    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then(function (result) {
-        console.log('vocab >> login successful. result:');
-        console.log(result);
-        console.log('-------------------------');
-        // voc.user = this.afAuth.authState;
-      });
-    console.log('vocab >> login completed. this.user:');
+    this.firebaseDataService.login();
+    console.log('vocab >> login()  user after:');
     console.log(this.user);
-    console.log(this.userName);
     console.log('-------------------------');
   };
 
@@ -99,8 +84,7 @@ export class VocabComponent implements OnInit {
     console.log('vocab >> logout()  user before:');
     console.log(this.user);
     // this.firebaseDataService.logout()
-    this.afAuth.auth.signOut();
-    // this.user = this.afAuth.authState;
+    this.firebaseDataService.logout();
     console.log('vocab >> logout()  user after:');
     console.log(this.user);
     console.log('-------------------------');
@@ -110,7 +94,7 @@ export class VocabComponent implements OnInit {
     console.log('vocab >> send(' + msg + ')');
     console.log(this.user);
     console.log('-------------------------');
-    // this.firebaseDataService.send(msg)
+    this.firebaseDataService.saveVoc(msg);
   };
 
 }
