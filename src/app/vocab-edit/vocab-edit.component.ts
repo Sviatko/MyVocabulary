@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   Validators
 } from '@angular/forms';
+import {FirebaseDataService} from "../services/firebase-data.service";
+import {VocEntry} from "../vocab/voc-entry.models";
 
 
 @Component({
@@ -11,28 +13,25 @@ import {
   templateUrl: './vocab-edit.component.html',
   styleUrls: ['./vocab-edit.component.css']
 })
-export class VocabEditComponent implements OnInit {
+export class VocabEditComponent {
   vocabEntryForm: FormGroup;
 
-  constructor(formBuilder: FormBuilder) {
+  constructor(formBuilder: FormBuilder, private firebaseSvc: FirebaseDataService) {
     this.vocabEntryForm = formBuilder.group({
-      'word':  ['', Validators.required],
-      'definition':  ['', Validators.required],
-      'author':  ['', Validators.required],
-      'nature':  ['', Validators.required],
-      'language':  ['', Validators.required],
-      'theme':  ['', Validators.required],
-      'example':  ['', Validators.required],
-      'importance':  ['', Validators.required]
+      'word': ['', Validators.required],
+      'definition': ['', Validators.required],
+      'author': ['', Validators.required],
+      'nature': ['', Validators.required],
+      'language': ['', Validators.required],
+      'theme': ['', Validators.required],
+      'example': ['', Validators.required],
+      'importance': ['', Validators.required]
     });
   }
 
   onSubmit(value: any): void {
+    let vocEntry: VocEntry = new VocEntry(value.word, value.definition, this.firebaseSvc.getUser().displayName, 'nature', 'language', 'theme', value.example, 3);
     console.log('you submitted value:', value.word);
-  }
-
-
-  ngOnInit() {
-  }
-
+    this.firebaseSvc.saveVoc(vocEntry);
+  };
 }

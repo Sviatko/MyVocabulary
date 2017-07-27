@@ -5,7 +5,7 @@ import {Observable} from "rxjs/Observable";
 import * as firebase from 'firebase/app';
 import {AngularFireAuth} from "angularfire2/auth";
 import {FirebaseApp} from "angularfire2";
-import {VocEntry} from "./vocab.models";
+import {VocEntry} from "./voc-entry.models";
 
 @Component({
   selector: 'app-vocab',
@@ -22,6 +22,7 @@ export class VocabComponent implements OnInit {
   addEntry: boolean = false;
   entry: VocEntry;
   vocabulary: VocEntry[];
+  vocab: any[];
 
   // constructor(private firebaseDataService: FirebaseDataService) {
   constructor(private firebaseDataService: FirebaseDataService) {
@@ -49,9 +50,14 @@ export class VocabComponent implements OnInit {
 
   ];
 
-  getVocabulary() {
+  getVocabulary(): FirebaseListObservable<any[]> {
     console.log('vocab >> getVocabulary()');
-    this.items = this.firebaseDataService.getMassages();
+    // this.vocab = this.firebaseDataService.getVocabulary();
+    console.log('vocab >> getVocabulary() >> vocab:');
+    console.log(this.firebaseDataService.getVocabulary());
+    return this.firebaseDataService.getVocabulary();
   }
+
+
 
 }

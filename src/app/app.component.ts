@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AngularFireDatabase, FirebaseListObservable} from "angularfire2/database";
 import {Observable} from "rxjs/Observable";
 import * as firebase from 'firebase/app';
@@ -11,15 +11,19 @@ import {FirebaseDataService} from "./services/firebase-data.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   user: firebase.User;
   private showVocab: boolean = true;
 
 
   constructor(private firebaseSvc:FirebaseDataService) {
-    this.firebaseSvc.firebaseInit();
-    this.user = firebaseSvc.user;
   };
+
+  ngOnInit() {
+    console.log('vocab >> ngInit()');
+    let voc = this;
+    this.firebaseSvc.getUser2().subscribe(user => voc.user = user)
+  }
 
   login() {
     this.firebaseSvc.login()
@@ -32,4 +36,11 @@ export class AppComponent {
   editVocabulary() {
     this.showVocab = !this.showVocab;
   }
+
+  getUser() {
+    this.user = this.firebaseSvc.user;
+    console.log(this.user);
+    console.log('-------------------------');
+  }
+
 }
