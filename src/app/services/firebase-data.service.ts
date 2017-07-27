@@ -1,4 +1,4 @@
-///<reference path="../../node_modules/firebase/app.d.ts"/>
+///<reference path="../../../node_modules/firebase/app.d.ts"/>
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs/Observable";
 import {AngularFireDatabase, FirebaseListObservable} from "angularfire2/database";
@@ -22,33 +22,38 @@ export class FirebaseDataService {
         limitToLast: 50
       }
     });
-    firebase.auth().onAuthStateChanged(function(user) {
+    this.firebaseInit();
+  }
+
+  firebaseInit() {
+    let voc = this;
+    firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
-        this.user = user;
+        voc.user = user;
+        console.log('app >> firebaseInit >> onAuthStateChanged >> voc.user: ');
+        console.log(voc.user);
+      } else {
+        voc.user = null;
+        console.log('app >> firebaseInit >> onAuthStateChanged >> user undefined ');
       }
-    });
+    })
   }
 
   login() {
-    console.log('fb >> login()');
-    // this.afAuth.auth.signInAnonymously();
+    let voc = this;
+    console.log('app >>login()');
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .then(function (result) {
-        console.log('fb >> login successful. result:');
+        console.log('app >>login successful. result:');
         console.log(result);
-        console.log(result.user.displayName);
-        var userName = result.user.displayName;
-        console.log('fb >> login successful. userName:');
-        console.log(userName);
+        voc.user = result.user;
       });
-    // this.user = this.afAuth.authState;
-    console.log('fb >> login completed');
-    console.log(this.user);
   }
 
   logout() {
-    console.log('fb >> logout()');
+    console.log('app >>logout()');
     this.afAuth.auth.signOut();
+    this.user = null;
   }
 
   send(desc: string) {

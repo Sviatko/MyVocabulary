@@ -1,7 +1,14 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
-  <h1>Hello</h1>
-<app-vocab></app-vocab>
-
+  <h1>VocabularyTrainer</h1>
+  <button *ngIf="!user" (click)="login()">Login</button>
+  <button *ngIf="user" (click)="logout()">Logout</button>
+  <div *ngIf="user">
+    <div *ngIf="user">user: {{user.displayName}}</div>
+    <button *ngIf="!showVocab" (click)="editVocabulary()">Show Vocabulary</button>
+    <button *ngIf="!!showVocab" (click)="editVocabulary()">Edit Vocabulary</button>
+    <app-vocab *ngIf="!!showVocab"></app-vocab>
+    <app-vocab-edit *ngIf="!showVocab"></app-vocab-edit>
+  </div>
 </div>
 

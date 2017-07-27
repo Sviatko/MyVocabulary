@@ -1,23 +1,9 @@
-<div *ngFor="let vocRecord of vocRecords">
-  <!--<p *ngFor="let item of items | async"><img src="../assets/images/pin.svg">{{item.message}}</p>-->
-  <p class="front">{{vocRecord.front}}</p>
-  <p class="back">{{vocRecord.back}}</p>
-</div>
-<p *ngIf="(user)">User - {{user.displayName}}</p>
-
 <div class="row columns">
-  <button (click)="login()">Login</button>
-  <button (click)="logout()">Logout</button>
-  <button (click)="send()">send</button>
-
-  <input type="text" id="message" *ngIf="(user)" placeholder="What is it that you do?"
-         (keyup.enter)="send($event.target.value)" [(ngModel)]="msgVal"/>
-  <div id="details-container">
-    <p *ngFor="let item of items"><img src="../assets/images/pin.svg">{{item.message}}</p>
+  <div *ngFor="let vocRecord of vocRecords">
+    <!--<p *ngFor="let item of items | async"><img src="../assets/images/pin.svg">{{item.message}}</p>-->
+    <p class="front">{{vocRecord.front}}</p>
+    <p class="back">{{vocRecord.back}}</p>
   </div>
+
 </div>
 
-<div>
-  <p *ngIf="user">username - {{user.displayName}}</p>
-  <!--<p>email - {{user.email}}</p>-->
-</div>
