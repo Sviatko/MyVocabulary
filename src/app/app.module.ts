@@ -11,6 +11,7 @@ import {AppComponent} from './app.component';
 import {VocabComponent} from './vocab/vocab.component';
 import {FirebaseDataService} from './services/firebase-data.service';
 import { VocabEditComponent } from './vocab-edit/vocab-edit.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { VocabEditComponent } from './vocab-edit/vocab-edit.component';
     HttpModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    NgbModule.forRoot()
   ],
   providers: [FirebaseDataService],
   bootstrap: [AppComponent]

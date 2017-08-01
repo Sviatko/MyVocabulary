@@ -81,7 +81,7 @@ export class FirebaseDataService {
 
   saveVoc(voc: VocEntry) {
     console.log('fb >> saveVoc(' + voc + ')');
-    this.myVocabulary.push({message: voc});
+    this.myVocabulary.push(voc);
     // this.msgVal = '';
   }
 

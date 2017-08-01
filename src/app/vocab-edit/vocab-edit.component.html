@@ -1,4 +1,4 @@
-  <h2 class="ui header">Your entry</h2>
+  <h2 class="ui header">Add entry</h2>
   <form [formGroup]="vocabEntryForm"
         (ngSubmit)="onSubmit(vocabEntryForm.value)"
         class="ui form"
@@ -24,7 +24,7 @@
            class="ui error message">field can't be empty</div>
     </div>
 
-    <div class="field" [class.error]="!vocabEntryForm.get('example').valid && vocabEntryForm.get('example').touched">
+<!--    <div class="field" [class.error]="!vocabEntryForm.get('example').valid && vocabEntryForm.get('example').touched">
       <label for="example">example</label>
       <input type="text"
              id="example"
@@ -32,7 +32,7 @@
              [formControl]="vocabEntryForm.controls['example']">
       <div *ngIf="vocabEntryForm.controls['example'].hasError('required')"
            class="ui error message">field can't be empty</div>
-    </div>
+    </div>-->
 
 
 
