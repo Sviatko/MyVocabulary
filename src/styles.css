@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+/*@import "~font-awesome/css/font-awesome.css";*/
+
 body {
   background-color:#EBEBEB;
   padding-top: 5em;
@@ -9,10 +12,11 @@ body {
 button {
   background:#008FEF;
   color:white;
-  padding: 1.2em;
-  width:300px;
-  text-align:center;
-  font-size:1.2em;
+  padding: 0.5em;
+  /*width:100px;*/
+  /*height: 30px;*/
+  /*text-align:center;*/
+  font-size:0.9em;
   margin-bottom: 30px;
   cursor:pointer;
 }

@@ -1,0 +1,33 @@
+<h2 class="ui header">Add entry</h2>
+<div class="form-container">
+  <form [formGroup]="vocabEntryForm"
+        (ngSubmit)="onSubmit(vocabEntryForm.value)"
+        class="ui form"
+        [class.error]="!vocabEntryForm.valid && vocabEntryForm.touched">
+
+    <div class="field" [class.error]="!vocabEntryForm.get('word').valid && vocabEntryForm.get('word').touched">
+      <label for="word">word/sentence</label>
+      <input type="text"
+             id="word"
+             placeholder="word/sentence"
+             [formControl]="vocabEntryForm.controls['word']">
+      <div *ngIf="vocabEntryForm.controls['word'].hasError('required')"
+           class="ui error message">field can't be empty
+      </div>
+    </div>
+
+    <div class="field"
+         [class.error]="!vocabEntryForm.get('definition').valid && vocabEntryForm.get('definition').touched">
+      <label for="definition">definition</label>
+      <input type="text"
+             id="definition"
+             placeholder="definition/sentence"
+             [formControl]="vocabEntryForm.controls['definition']">
+      <div *ngIf="vocabEntryForm.controls['definition'].hasError('required')"
+           class="ui error message">field can't be empty
+      </div>
+    </div>
+
+    <button type="submit" class="ui button">Submit</button>
+  </form>
+</div>
