@@ -8,97 +8,64 @@ import {FirebaseApp} from "angularfire2";
 
 @Injectable()
 export class FirebaseDataService {
-
+  // constructor() {}
+  //
   user: firebase.User;
-  user2: Observable<firebase.User>;
-  myVocabulary: FirebaseListObservable<any[]>;
+  items: FirebaseListObservable<any[]>;
   msgVal: string = '';
+  // fbAppAuth: () => firebase.auth.Auth;
+  // fbApp : FirebaseApp;
 
   constructor(public afAuth: AngularFireAuth, public afdb: AngularFireDatabase, public fbApp : FirebaseApp) {
-    let fbThis = this;
-    this.user2 = afAuth.authState;
-    console.log('fb >> constructor >> user2: ');
-    console.log(this.user2);
-    fbThis.myVocabulary = afdb.list('/messages', {
+    this.items = afdb.list('/messages', {
       query: {
         limitToLast: 50
       }
     });
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        fbThis.user = user;
-        console.log('fb >> constructor >> onAuthStateChanged >> user:');
-        console.log(user);
-        let path: string = fbThis.user.displayName.split(' ')[0];
-        console.log('fb >> constructor >> onAuthStateChanged >> path - ' + path);
-        fbThis.myVocabulary = afdb.list('/'+path+'/vocab', {
-          query: {
-            limitToLast: 50
-          }
-        });
-        console.log('fb >> constructor >> onAuthStateChanged >> myVocabulary: ');
-        console.log(fbThis.myVocabulary);
+        this.user = user;
       }
     });
   }
 
   login() {
-    let fbThis = this;
     console.log('fb >> login()');
     // this.afAuth.auth.signInAnonymously();
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-    // this.afAuth.auth.signInWithEmailAndPassword('myemail@email.com' , 'pass1234567')
       .then(function (result) {
         console.log('fb >> login successful. result:');
         console.log(result);
-        console.log('fb >> login >> user:');
-        fbThis.user = result.user;
-        console.log('fb >> login successful. user:');
-        console.log(fbThis.user);
-        let path: string = fbThis.user.displayName.split(' ')[0];
-        console.log('fb >> constructor >> onAuthStateChanged >> path - ' + path);
-        fbThis.myVocabulary = fbThis.afdb.list('/'+path+'/vocab', {
-          query: {
-            limitToLast: 50
-          }
-        });
-      })
-      .catch(function (err){
-        console.log('fb >> login error');
-        console.log(err);
+        console.log(result.user.displayName);
+        var userName = result.user.displayName;
+        console.log('fb >> login successful. userName:');
+        console.log(userName);
       });
     // this.user = this.afAuth.authState;
-    console.log('fb >> login ended');
+    console.log('fb >> login completed');
     console.log(this.user);
   }
 
   logout() {
     console.log('fb >> logout()');
     this.afAuth.auth.signOut();
-    this.user = null;
   }
 
-  saveVoc(voc: string) {
-    console.log('fb >> saveVoc(' + voc + ')');
-    this.myVocabulary.push({message: voc});
+  send(desc: string) {
+    console.log('fb >> send(' + desc + ')');
+    this.items.push({message: desc});
     this.msgVal = '';
   }
 
-  getUser(): firebase.User {
+  getUser(): string {
     console.log('fb >> getUser()');
     console.log(this.user);
-    return this.user;
+    return this.user.displayName;
   }
 
-  getUser2(): Observable<firebase.User> {
-    console.log('fb >> getUser2()');
-    console.log(this.user2);
-    return this.user2;
-  }
-
-  getVocabulary(): FirebaseListObservable<any[]> {
-    console.log('fb >> getVocabulary()');
-    return this.myVocabulary;
+  getMassages(): FirebaseListObservable<any[]> {
+    console.log('fb >> getMassages()');
+    return this.items;
   }
 
 
