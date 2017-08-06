@@ -10,8 +10,20 @@ import {firebaseConfig} from "./services/firebase.config";
 import {AppComponent} from './app.component';
 import {VocabComponent} from './vocab/vocab.component';
 import {FirebaseDataService} from './services/firebase-data.service';
-import { VocabEditComponent } from './vocab-edit/vocab-edit.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {VocabEditComponent} from './vocab-edit/vocab-edit.component';
+// import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {RouterModule, Routes} from '@angular/router';
+
+
+// import {MdInputModule} from '@angular/material';
+// import {CdkTableModule} from "@angular/cdk/table";
+
+const routes: Routes = [
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: 'vocabulary', component: VocabComponent},
+  {path: 'voc-edit', component: VocabEditComponent},
+  {path: 'contactus', redirectTo: 'contact'}
+];
 
 @NgModule({
   declarations: [
@@ -27,9 +39,13 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    NgbModule.forRoot()
+    // NgbModule.forRoot(),
+    RouterModule.forRoot(routes)
   ],
-  providers: [FirebaseDataService],
+
+  providers: [
+    FirebaseDataService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

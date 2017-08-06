@@ -1,4 +1,5 @@
-  <h2 class="ui header">Add entry</h2>
+<h2 class="ui header">Add entry</h2>
+<div class="form-container">
   <form [formGroup]="vocabEntryForm"
         (ngSubmit)="onSubmit(vocabEntryForm.value)"
         class="ui form"
@@ -11,32 +12,22 @@
              placeholder="word/sentence"
              [formControl]="vocabEntryForm.controls['word']">
       <div *ngIf="vocabEntryForm.controls['word'].hasError('required')"
-           class="ui error message">field can't be empty</div>
+           class="ui error message">field can't be empty
+      </div>
     </div>
 
-    <div class="field" [class.error]="!vocabEntryForm.get('definition').valid && vocabEntryForm.get('definition').touched">
+    <div class="field"
+         [class.error]="!vocabEntryForm.get('definition').valid && vocabEntryForm.get('definition').touched">
       <label for="definition">definition</label>
       <input type="text"
              id="definition"
              placeholder="definition/sentence"
              [formControl]="vocabEntryForm.controls['definition']">
       <div *ngIf="vocabEntryForm.controls['definition'].hasError('required')"
-           class="ui error message">field can't be empty</div>
+           class="ui error message">field can't be empty
+      </div>
     </div>
-
-<!--    <div class="field" [class.error]="!vocabEntryForm.get('example').valid && vocabEntryForm.get('example').touched">
-      <label for="example">example</label>
-      <input type="text"
-             id="example"
-             placeholder="example/sentence"
-             [formControl]="vocabEntryForm.controls['example']">
-      <div *ngIf="vocabEntryForm.controls['example'].hasError('required')"
-           class="ui error message">field can't be empty</div>
-    </div>-->
-
-
-
-
 
     <button type="submit" class="ui button">Submit</button>
   </form>
+</div>

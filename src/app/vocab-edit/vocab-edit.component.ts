@@ -11,7 +11,7 @@ import {VocEntry} from "../vocab/voc-entry.models";
 @Component({
   selector: 'app-vocab-edit',
   templateUrl: './vocab-edit.component.html',
-  styleUrls: ['./vocab-edit.component.css']
+  styleUrls: ['vocab-edit.component.less']
 })
 export class VocabEditComponent {
   vocabEntryForm: FormGroup;
@@ -33,5 +33,6 @@ export class VocabEditComponent {
     let vocEntry: VocEntry = new VocEntry(value.word, value.definition, this.firebaseSvc.getUser().displayName, 'nature', 'language', 'theme', value.example, 3);
     console.log('you submitted value:', value.word);
     this.firebaseSvc.saveVoc(vocEntry);
+    value = {};
   };
 }

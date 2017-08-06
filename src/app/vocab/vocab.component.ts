@@ -6,6 +6,7 @@ import * as firebase from 'firebase/app';
 import {AngularFireAuth} from "angularfire2/auth";
 import {FirebaseApp} from "angularfire2";
 import {VocEntry} from "./voc-entry.models";
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'app-vocab',
@@ -15,49 +16,23 @@ import {VocEntry} from "./voc-entry.models";
 })
 export class VocabComponent implements OnInit {
 
-  msgVal: string = '';
-  items: FirebaseListObservable<any[]>;
   user: firebase.User;
-  userName: string;
-  addEntry: boolean = false;
-  entry: VocEntry;
   vocabulary: VocEntry[];
-  vocab: any[];
+  searchStr: string = '';
 
-  // constructor(private firebaseDataService: FirebaseDataService) {
   constructor(private firebaseDataService: FirebaseDataService) {
   };
 
   ngOnInit() {
-    // this.getMessages();
-    // this.getUser();
   }
 
-  vocRecords = [
-    {
-      front: 'live',
-      back: 'жити'
-    },
-    {
-      front: 'sign',
-      back: 'знак'
-    },
-
-    {
-      front: 'sign',
-      back: 'вчити'
-    }
-
-  ];
 
   getVocabulary(): FirebaseListObservable<any[]> {
-    console.log('vocab >> getVocabulary()');
-    // this.vocab = this.firebaseDataService.getVocabulary();
-    console.log('vocab >> getVocabulary() >> vocab:');
-    console.log(this.firebaseDataService.getVocabulary());
     return this.firebaseDataService.getVocabulary();
   }
 
-
-
+  filter(entry: VocEntry) {
+    let searchStr = this.searchStr.toLowerCase();
+    return !(entry.word.toLowerCase().includes(searchStr) || entry.definition.toLowerCase().includes(searchStr))
+  }
 }

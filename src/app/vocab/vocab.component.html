@@ -1,9 +1,12 @@
-<div class="row columns">
-  <div *ngFor="let vocRecord of getVocabulary() | async">
-    <!--<p *ngFor="let item of items | async"><img src="../assets/images/pin.svg">{{item.message}}</p>-->
+<div class="vocabulary-container">
+  <div class="search-input">
+    <input type="text"
+           id="searchStr"
+           placeholder="search string"
+           [(ngModel)]="searchStr">
+  </div>
+  <div class="voc-entry" *ngFor="let vocRecord of getVocabulary() | async" [hidden]="filter(vocRecord)">
     <p class="front">{{vocRecord.word}}</p>
     <p class="back">{{vocRecord.definition}}</p>
   </div>
-
 </div>
-
