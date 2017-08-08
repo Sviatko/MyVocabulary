@@ -1,35 +1,74 @@
 .vocabulary-container {
-  //padding: 5px;
-  max-width: 300px;
-  background-color: #dbdbdb;
   margin: auto;
-  padding: 5px;
-  .voc-entry {
-    background-color: #f6f6f6;
-    text-align: left;
-    padding: 12px;
-    margin: 5px;
-    //border: 1px solid #b2b2b2;
-    .front {
-      margin: 0;
-      margin-top: 1px;
-      color: red
-    }
-  ;
-    .back {
-      margin: 0;
-      color: blue;
-      margin-top: 5px;
-      margin-bottom: 1px;
-      margin-left: 5px;
-    }
-    .example-card {
-      width: 400px;
-    }
+  overflow: hidden;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
 
-    .example-header-image {
-      //background-image: url('../../../assets/img/examples/shiba1.jpg');
-      background-size: cover;
+  .search-input {
+    position: absolute;
+    height: 30px;
+    left:10px;
+    right:10px;
+    margin: 0 15px;
+    input {
+      width: 100%;
     }
   }
+
+  .voc-list-container {
+    background-color: #dbdbdb;
+    position: absolute;
+    //width: 100%;
+    top: 30px;
+    bottom: 10px;
+    left:10px;
+    right:10px;
+    text-align: left;
+    overflow: hidden;
+    .voc-list {
+      overflow: auto;
+      position: absolute;
+      top: 10px;
+      bottom: 10px;
+      left:10px;
+      right:10px;
+
+      .voc-entry {
+        background-color: #f6f6f6;
+        position: relative;
+        top: 0px;
+        bottom: 0;
+        padding: 12px;
+        margin: 5px;
+        //width: 100%;
+        //border: 1px solid #b2b2b2;
+        .front {
+          margin: 0;
+          margin-top: 1px;
+          color: red;
+          font-size: x-large;
+        }
+      ;
+        .back {
+          margin: 0;
+          color: blue;
+          margin-top: 5px;
+          margin-bottom: 1px;
+          margin-left: 5px;
+          font-size: medium;
+        }
+        .example-card {
+          width: 400px;
+        }
+
+        .example-header-image {
+          //background-image: url('../../../assets/img/examples/shiba1.jpg');
+          background-size: cover;
+        }
+      }
+    }
+  }
+
 }

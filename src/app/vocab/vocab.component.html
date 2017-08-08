@@ -5,8 +5,12 @@
            placeholder="search string"
            [(ngModel)]="searchStr">
   </div>
-  <div class="voc-entry" *ngFor="let vocRecord of getVocabulary() | async" [hidden]="filter(vocRecord)">
-    <p class="front">{{vocRecord.word}}</p>
-    <p class="back">{{vocRecord.definition}}</p>
+  <div class="voc-list-container">
+    <div class="voc-list">
+      <div class="voc-entry" *ngFor="let vocRecord of getVocabulary() | async" [hidden]="filter(vocRecord)">
+        <p class="front">{{vocRecord.word}}</p>
+        <p class="back">{{vocRecord.definition}}</p>
+      </div>
+    </div>
   </div>
 </div>

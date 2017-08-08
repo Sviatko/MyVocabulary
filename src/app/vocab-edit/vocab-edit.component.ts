@@ -33,6 +33,11 @@ export class VocabEditComponent {
     let vocEntry: VocEntry = new VocEntry(value.word, value.definition, this.firebaseSvc.getUser().displayName, 'nature', 'language', 'theme', value.example, 3);
     console.log('you submitted value:', value.word);
     this.firebaseSvc.saveVoc(vocEntry);
-    value = {};
+/*    value = {};
+    this.vocabEntryForm.setValue({
+      word:    '',
+      definition: ''
+    });*/
+    this.vocabEntryForm.reset()
   };
 }

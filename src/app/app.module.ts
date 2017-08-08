@@ -19,7 +19,7 @@ import {RouterModule, Routes} from '@angular/router';
 // import {CdkTableModule} from "@angular/cdk/table";
 
 const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: '', redirectTo: '/', pathMatch: 'full'},
   {path: 'vocabulary', component: VocabComponent},
   {path: 'voc-edit', component: VocabEditComponent},
   {path: 'contactus', redirectTo: 'contact'}
